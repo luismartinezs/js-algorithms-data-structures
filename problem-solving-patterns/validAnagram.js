@@ -18,4 +18,23 @@ const validAnagram = (str1 = '', str2 = '') => {
   return true
 }
 
-export default validAnagram
+const betterAnagram = (str1 = '', str2 = '') => {
+  if (str1.length !== str2.length) return false
+
+  let frequencyCounter = {}
+
+  str1.split('').forEach(el => {
+    frequencyCounter[el] = (frequencyCounter[el] || 0) + 1
+  })
+
+  for (let letter of str2) {
+    // false if letter is not in counter
+    // Or if value is zero
+    if (!frequencyCounter[letter]) return false
+    frequencyCounter[letter] -= 1
+  }
+
+  return true
+}
+
+export default betterAnagram
