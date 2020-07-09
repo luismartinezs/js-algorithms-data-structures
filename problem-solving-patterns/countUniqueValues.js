@@ -3,13 +3,11 @@ const countUniqueValues = arr => {
 
   const _arr = [...arr]
   let i = 0
-  let j = 1
-  while (j < _arr.length) {
+  for (let j = 1; j < arr.length; j++) {
     if (_arr[i] !== _arr[j]) {
       i++
       _arr[i] = _arr[j]
     }
-    j++
   }
   return i + 1
 }
