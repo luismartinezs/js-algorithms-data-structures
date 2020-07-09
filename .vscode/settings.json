@@ -1,0 +1,84 @@
+{
+  // ===
+  // Spacing
+  // ===
+
+  "editor.insertSpaces": true,
+  "editor.tabSize": 2,
+  "editor.trimAutoWhitespace": true,
+  "files.trimTrailingWhitespace": true,
+  "files.eol": "\n",
+  "files.insertFinalNewline": true,
+  "files.trimFinalNewlines": true,
+
+  // ===
+  // Event Triggers
+  // ===
+
+  // This setup explicitly uses prettier extension for html files, and disables auto format on saving in general. Then, explicitly enables auto format on save while using prettier-standard extension for .js files.
+
+  // What formats what
+  // Prettier extension: html, scss and css files. Template and style tags in .vue files. Formatted with alt+shift+F (ctrl+shift+I on Ubuntu)
+  // Prettier-StandardJS extension: js files (with alt+shift+F, ctrl+shift+I on Ubuntu). Script tags in .vue files (on save)
+
+  "editor.formatOnType": false,
+  "editor.formatOnSave": false,
+
+  // Sets prettier as default formatter for any file, overwriting later as needed
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+
+  // Disables VSC JavaScript syntax validation
+  "javascript.validate.enable": false,
+
+  "eslint.validate": [
+    "vue",
+    "javascript",
+    "javascriptreact",
+    "vue-html",
+    "html"
+  ],
+  "editor.codeActionsOnSave": {
+    "source.fixAll.eslint": true
+  },
+  "javascript.updateImportsOnFileMove.enabled": "always",
+
+  // ===
+  // Config by language
+  // ===
+
+  "[html]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[javascript]": {
+    // Format .js files AND scripts in .vue files on save
+    // Format .js files (but NOT scripts in .vue files) with autoformat shortcut
+    "editor.formatOnSave": true,
+    "editor.defaultFormatter": "numso.prettier-standard-vscode"
+  },
+  "[vue]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[scss]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[css]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[json]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[jsonc]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[sql]": {
+    "editor.defaultFormatter": "mtxr.sqltools"
+  },
+  "[yaml]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[markdown]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
+    "editor.wordWrap": "wordWrapColumn",
+    "editor.wordWrapColumn": 80
+  }
+}
