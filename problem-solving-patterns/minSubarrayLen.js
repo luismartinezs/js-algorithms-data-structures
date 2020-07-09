@@ -6,7 +6,7 @@ const minSubarrayLen = (arr, target) => {
   let i = 0
   let j = 0
   let minLen = arr.length
-  let sum = arr[i]
+  let sum = arr[0]
 
   while (j < arr.length) {
     if (sum < target) {
@@ -15,7 +15,7 @@ const minSubarrayLen = (arr, target) => {
     } else {
       minLen = Math.min(minLen, j - i + 1)
       if (minLen === 1) return 1
-      sum -= arr[i]
+      sum -= arr[i]https://javascript.info/
       i++
     }
   }
