@@ -1,7 +1,12 @@
 import { swap } from '../helper.js'
 
-function quickSort () {
-  return []
+function quickSort (arr, start = 0, end = arr.length - 1) {
+  if (start < end) {
+    let pivotIndex = pivot(arr, start, end)
+    quickSort(arr, start, pivotIndex - 1)
+    quickSort(arr, pivotIndex + 1, end)
+  }
+  return arr
 }
 
 function pivot (arr, start = 0, end = arr.length - 1) {

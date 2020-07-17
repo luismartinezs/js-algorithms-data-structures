@@ -12,5 +12,9 @@ describe('pivot', () => {
 })
 
 describe('quickSort', () => {
-  test('Returns sorted array', () => {})
+  test('Returns sorted array', () => {
+    let arr = [4, 3, 6, 7, 5, 2, 8, 9, 1]
+    let result = [1, 2, 3, 4, 5, 6, 7, 8, 9]
+    expect(quickSort(arr)).toEqual(result)
+  })
 })
