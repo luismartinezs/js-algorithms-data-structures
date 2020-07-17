@@ -1,20 +1,23 @@
+import { swap } from '../helper.js'
+
 function quickSort () {
   return []
 }
 
 function pivot (arr, start = 0, end = arr.length - 1) {
-  let pivot = 0
+  let pivot = arr[start]
+  let swapIndex = start
 
-  for (let i = 1; i < arr.length; i++) {
-    if (arr[0] > arr[i]) {
-      pivot++
-      ;[arr[pivot], arr[i]] = [arr[i], arr[pivot]]
+  for (let i = start + 1; i <= end; i++) {
+    if (pivot > arr[i]) {
+      swapIndex++
+      swap(arr, swapIndex, i)
     }
   }
 
-  ;[arr[0], arr[pivot]] = [arr[pivot], arr[0]]
+  swap(arr, start, swapIndex)
 
-  return arr
+  return swapIndex
 }
 
 export { pivot, quickSort }
