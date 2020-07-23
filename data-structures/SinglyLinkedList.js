@@ -90,6 +90,15 @@ class SinglyLinkedList {
     }
     return current
   }
+
+  set (index, value) {
+    const node = this.get(index)
+    if (!node) {
+      return false
+    }
+    node.value = value
+    return true
+  }
 }
 
 let list = new SinglyLinkedList()
@@ -101,7 +110,7 @@ list.push('Four')
 list.push('Five')
 list.push('Six')
 
-console.log(list.get(6))
+list.set(4, '4444')
 
 console.log(list)
 
