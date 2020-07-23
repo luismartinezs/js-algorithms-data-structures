@@ -99,6 +99,24 @@ class SinglyLinkedList {
     node.value = value
     return true
   }
+
+  insert (index, value) {
+    if (index < 0 || index > this.length) {
+      return false
+    }
+    if (index === this.length) {
+      return !!this.push(value)
+    }
+    if (index === 0) {
+      return !!this.unshift(value)
+    }
+    const newNode = new Node(value)
+    const prevNode = this.get(index - 1)
+    newNode.next = prevNode.next
+    prevNode.next = newNode
+    this.length++
+    return true
+  }
 }
 
 let list = new SinglyLinkedList()
@@ -110,7 +128,10 @@ list.push('Four')
 list.push('Five')
 list.push('Six')
 
-list.set(4, '4444')
+list.insert(4, '444')
+list.insert(4, '444444')
+list.insert(0, 'AAAA')
+list.insert(10, 'BBB')
 
 console.log(list)
 
