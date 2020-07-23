@@ -24,14 +24,6 @@ class SinglyLinkedList {
     return this
   }
 
-  traverse () {
-    let current = this.head
-    while (current) {
-      console.log(current.value)
-      current = current.next
-    }
-  }
-
   pop () {
     if (!this.head) {
       return undefined
@@ -117,22 +109,44 @@ class SinglyLinkedList {
     this.length++
     return true
   }
+
+  remove (index) {
+    if (index < 0 || index >= this.length) {
+      return undefined
+    }
+    if (index === this.length - 1) {
+      return this.pop()
+    }
+    if (index === 0) {
+      return this.shift()
+    }
+    const prevNode = this.get(index - 1)
+    const removedNode = prevNode.next
+    prevNode.next = removedNode.next
+    this.length--
+    return removedNode
+  }
+
+  reverse () {
+    let node = this.head
+    ;[this.tail, this.head] = [this.head, this.tail]
+    let next
+    let prev = null
+    for (let i = 0; i < this.length; i++) {
+      next = node.next
+      node.next = prev
+      prev = node
+      node = next
+    }
+  }
+
+  print () {
+    const arr = []
+    let current = this.head
+    while (current) {
+      arr.push(current.value)
+      current = current.next
+    }
+    console.log(arr)
+  }
 }
-
-let list = new SinglyLinkedList()
-list.push('Zero')
-list.push('One')
-list.push('Two')
-list.push('Three')
-list.push('Four')
-list.push('Five')
-list.push('Six')
-
-list.insert(4, '444')
-list.insert(4, '444444')
-list.insert(0, 'AAAA')
-list.insert(10, 'BBB')
-
-console.log(list)
-
-list.traverse()
