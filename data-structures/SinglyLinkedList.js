@@ -77,24 +77,31 @@ class SinglyLinkedList {
     this.head = newHead
     return this
   }
+
+  get (index) {
+    if (this.length <= index || index < 0) {
+      return null
+    }
+    let i = 0
+    let current = this.head
+    while (i < index) {
+      i++
+      current = current.next
+    }
+    return current
+  }
 }
 
 let list = new SinglyLinkedList()
+list.push('Zero')
 list.push('One')
 list.push('Two')
 list.push('Three')
+list.push('Four')
+list.push('Five')
+list.push('Six')
 
-list.shift()
-list.shift()
-
-list.shift()
-
-list.push(1000)
-list.pop()
-list.unshift('ONE')
-list.unshift('TWO')
-
-list.pop()
+console.log(list.get(6))
 
 console.log(list)
 
