@@ -1,3 +1,5 @@
+const Queue = require('./Queue.js')
+
 class Node {
   constructor (value) {
     this.value = value
@@ -55,17 +57,103 @@ class BinarySearchTree {
     }
     return false
   }
+
+  // Breadth-first search
+  bfsTraverse () {
+    const queue = new Queue()
+    const values = []
+    let current
+
+    queue.enqueue(this.root)
+
+    while (queue.length) {
+      current = queue.dequeue().value
+      values.push(current.value)
+
+      if (current.left) {
+        queue.enqueue(current.left)
+      }
+
+      if (current.right) {
+        queue.enqueue(current.right)
+      }
+    }
+
+    return values
+  }
+
+  // Depth-first search
+  dfsPreorder () {
+    const visited = []
+
+    function traverseNode (node) {
+      visited.push(node.value)
+
+      if (node.left) {
+        traverseNode(node.left)
+      }
+      if (node.right) {
+        traverseNode(node.right)
+      }
+    }
+
+    traverseNode(this.root)
+
+    return visited
+  }
+
+  dfsPostorder () {
+    const visited = []
+
+    function traverseNode (node) {
+      if (node.left) {
+        traverseNode(node.left)
+      }
+      if (node.right) {
+        traverseNode(node.right)
+      }
+      visited.push(node.value)
+    }
+
+    traverseNode(this.root)
+
+    return visited
+  }
+
+  dfsInorder () {
+    const visited = []
+
+    function traverseNode (node) {
+      if (node.left) {
+        traverseNode(node.left)
+      }
+      visited.push(node.value)
+      if (node.right) {
+        traverseNode(node.right)
+      }
+    }
+
+    traverseNode(this.root)
+
+    return visited
+  }
 }
 
 const tree = new BinarySearchTree()
 
-tree.insert(5)
+tree.insert(10)
 tree.insert(6)
-tree.insert(4)
-tree.insert(2)
-tree.insert(7)
+tree.insert(15)
 tree.insert(3)
-tree.insert(3)
+tree.insert(8)
+tree.insert(20)
 
-console.log(tree.find(2)) // true
-console.log(tree.find(10)) // false
+// console.log(tree.find(2)) // true
+// console.log(tree.find(10)) // false
+
+tree.traverse = tree.dfsPostorder
+
+console.log(tree.bfsTraverse())
+console.log(tree.dfsPreorder())
+console.log(tree.dfsPostorder())
+console.log(tree.dfsInorder())

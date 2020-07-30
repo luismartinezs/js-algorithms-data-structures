@@ -1,24 +1,24 @@
 // array implementation >> not efficient
 
-let q = []
+// let q = []
 
 // Option A
 
-q.push('zero')
-q.push('one')
-q.push('two')
-q.shift()
-q.shift()
-q.shift()
+// q.push('zero')
+// q.push('one')
+// q.push('two')
+// q.shift()
+// q.shift()
+// q.shift()
 
 // Option B
 
-q.unshift('zero')
-q.unshift('one')
-q.unshift('two')
-q.pop()
-q.pop()
-q.pop()
+// q.unshift('zero')
+// q.unshift('one')
+// q.unshift('two')
+// q.pop()
+// q.pop()
+// q.pop()
 
 // Linked List implementation
 
@@ -56,15 +56,17 @@ class Queue {
     if (!this.length) {
       this.tail = null
     }
-    return oldHead.value
+    return oldHead
   }
 }
 
-q = new Queue()
-q.enqueue('zero')
-q.enqueue('one')
-q.enqueue('two')
-console.log(q.dequeue()) // zero
-console.log(q.dequeue()) // one
-console.log(q.dequeue()) // two
-console.log(q.dequeue()) // undefined
+// q = new Queue()
+// q.enqueue('zero')
+// q.enqueue('one')
+// q.enqueue('two')
+// console.log(q.dequeue().value) // zero
+// console.log(q.dequeue().value) // one
+// console.log(q.dequeue().value) // two
+// console.log(q.dequeue().value) // undefined
+
+module.exports = Queue
