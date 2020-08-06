@@ -2,21 +2,29 @@ function swap (arr, i, j) {
   ;[arr[i], arr[j]] = [arr[j], arr[i]]
 }
 
-class MaxBinaryHeap {
+class Node {
+  constructor (val, priority) {
+    this.val = val
+    this.priority = priority
+  }
+}
+
+// Implementation using Min Binary Heap
+class PriorityQueue {
   constructor () {
     this.values = []
   }
 
-  insert (val) {
-    this.values.push(val)
+  enqueue (val, priority) {
+    const node = new Node(val, priority)
+    this.values.push(node)
 
     this.bubbleUp()
 
     return this.values
   }
 
-  // Usually root is removed and heap is adjusted (bubble down). Also called extractMax
-  remove () {
+  dequeue () {
     if (!this.values.length) {
       return undefined
     }
@@ -39,7 +47,10 @@ class MaxBinaryHeap {
     let index = this.values.length - 1
     let parentIndex = Math.floor((index - 1) / 2)
 
-    while (this.values[parentIndex] < this.values[index] && index > 0) {
+    while (
+      index > 0 &&
+      this.values[parentIndex].priority > this.values[index].priority
+    ) {
       ;[this.values[parentIndex], this.values[index]] = [
         this.values[index],
         this.values[parentIndex]
@@ -49,7 +60,6 @@ class MaxBinaryHeap {
     }
   }
 
-  // Course solution. I believe mine is a bit better
   bubbleDown () {
     let index = 0
     const element = this.values[0]
@@ -63,7 +73,7 @@ class MaxBinaryHeap {
 
       if (leftIndex < length) {
         leftElem = this.values[leftIndex]
-        if (leftElem > element) {
+        if (leftElem.priority < element.priority) {
           swapIndex = leftIndex
         }
       }
@@ -71,8 +81,8 @@ class MaxBinaryHeap {
       if (rightIndex < length) {
         rightElem = this.values[rightIndex]
         if (
-          (swapIndex === null && rightElem > element) ||
-          (swapIndex !== null && rightElem > leftElem)
+          (swapIndex === null && rightElem.priority < element.priority) ||
+          (swapIndex !== null && rightElem.priority < leftElem.priority)
         ) {
           swapIndex = rightIndex
         }
@@ -85,45 +95,35 @@ class MaxBinaryHeap {
       index = swapIndex
     }
   }
-
-  // My solution
-  bubbleDown2 () {
-    let index = 0
-    let element = this.values[0]
-
-    while (true) {
-      let leftIndex = 2 * index + 1
-      let rightIndex = 2 * index + 2
-
-      let isRightLargerThanElement =
-        element < (this.values[rightIndex] || -Infinity)
-      let isLeftLargerThanElement =
-        element < (this.values[leftIndex] || -Infinity)
-
-      let isLeftLargerThanRight =
-        (this.values[leftIndex] || 0) > (this.values[rightIndex] || 0)
-
-      if (isRightLargerThanElement || isLeftLargerThanElement) {
-        if (isLeftLargerThanRight) {
-          swap(this.values, leftIndex, index)
-          index = leftIndex
-        } else {
-          swap(this.values, rightIndex, index)
-          index = rightIndex
-        }
-      } else {
-        break
-      }
-    }
-  }
 }
 
-const heap = new MaxBinaryHeap()
+const q = new PriorityQueue()
 
-;[33, 12, 27, 18, 39, 55, -4, -55, 55, 55].forEach(el => heap.insert(el))
+q.enqueue('flu', 3)
+q.enqueue('concussion', 2)
+q.enqueue('drunk', 4)
+q.enqueue('head exploded', 1)
+q.enqueue('hypochondria', 10)
+q.enqueue('very mild headache', 5)
+q.enqueue('fear of Cthulhu', 7)
 
-console.log(heap.values)
+const healed = []
 
-heap.remove()
+healed.push(q.dequeue())
+healed.push(q.dequeue())
+healed.push(q.dequeue())
+healed.push(q.dequeue())
+healed.push(q.dequeue())
+q.enqueue('hunger', 9)
+q.enqueue('extreme hunger', 3)
+q.enqueue('complete happiness', 100)
+q.enqueue('laziness', 11)
 
-console.log(heap.values)
+healed.push(q.dequeue())
+healed.push(q.dequeue())
+healed.push(q.dequeue())
+healed.push(q.dequeue())
+
+console.log(healed)
+
+console.log(q.values)
