@@ -29,21 +29,58 @@ class Graph {
     )
     delete this.adjacencyList[vertex]
   }
+
+  // depth first traverse
+  dfsRecursive (start) {
+    const results = []
+    const visited = {}
+    const { adjacencyList } = this
+
+    ;(function dfs (vertex) {
+      if (!vertex) {
+        return null
+      }
+
+      visited[vertex] = true
+      results.push(vertex)
+
+      adjacencyList[vertex].forEach(adjacent => {
+        if (!visited[adjacent]) {
+          return dfs(adjacent)
+        }
+      })
+    })(start)
+
+    return results
+  }
 }
 
 const g = new Graph()
 
-g.addVertex('Tokyo')
-g.addVertex('Tokyo')
-g.addVertex('Aspen')
-g.addVertex('Dallas')
-g.addVertex('Shanghai')
-g.addVertex('Madrid')
-g.addEdge('Tokyo', 'Dallas')
-g.addEdge('Aspen', 'Dallas')
-g.addEdge('Tokyo', 'Shanghai')
-g.addEdge('Shanghai', 'Madrid')
-g.removeEdge('Aspen', 'Dallas')
-g.removeVertex('Shanghai')
+// g.addVertex('Tokyo')
+// g.addVertex('Tokyo')
+// g.addVertex('Aspen')
+// g.addVertex('Dallas')
+// g.addVertex('Shanghai')
+// g.addVertex('Madrid')
+// g.addEdge('Tokyo', 'Dallas')
+// g.addEdge('Aspen', 'Dallas')
+// g.addEdge('Tokyo', 'Shanghai')
+// g.addEdge('Shanghai', 'Madrid')
+// g.removeEdge('Aspen', 'Dallas')
+// g.removeVertex('Shanghai')
+
+;['A', 'B', 'C', 'D', 'E', 'F'].forEach(el => g.addVertex(el))
+g.addEdge('A', 'B')
+g.addEdge('A', 'C')
+g.addEdge('B', 'D')
+g.addEdge('C', 'E')
+g.addEdge('D', 'E')
+g.addEdge('D', 'F')
+g.addEdge('E', 'F')
 
 console.log(g)
+
+const list = g.dfsRecursive('A')
+
+console.log(list)
