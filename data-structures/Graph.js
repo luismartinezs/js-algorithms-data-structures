@@ -53,6 +53,50 @@ class Graph {
 
     return results
   }
+
+  dfsIterative (start) {
+    const stack = [start]
+    const results = []
+    const visited = {}
+
+    visited[start] = true
+
+    while (stack.length) {
+      const currentVertex = stack.pop()
+      results.push(currentVertex)
+
+      this.adjacencyList[currentVertex].forEach(adjacent => {
+        if (!visited[adjacent]) {
+          visited[adjacent] = true
+          stack.push(adjacent)
+        }
+      })
+    }
+
+    return results
+  }
+
+  bfs (start) {
+    const queue = [start]
+    const results = []
+    const visited = {}
+
+    visited[start] = true
+
+    while (queue.length) {
+      const currentVertex = queue.shift()
+      results.push(currentVertex)
+
+      this.adjacencyList[currentVertex].forEach(adjacent => {
+        if (!visited[adjacent]) {
+          visited[adjacent] = true
+          queue.push(adjacent)
+        }
+      })
+    }
+
+    return results
+  }
 }
 
 const g = new Graph()
@@ -81,6 +125,10 @@ g.addEdge('E', 'F')
 
 console.log(g)
 
-const list = g.dfsRecursive('A')
+// const list = g.dfsRecursive('A')
+
+// const list = g.dfsIterative('A')
+
+const list = g.bfs('A')
 
 console.log(list)
