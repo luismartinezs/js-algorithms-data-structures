@@ -35,42 +35,45 @@ class WeightedGraph {
     this.adjacencyList[vertex2].push({ node: vertex1, weight })
   }
 
-  // Dijkstra
+  // Dijkstra algorithm
   shortestPath (start, end) {
-    const distances = Object.keys(this.adjacencyList).reduce((obj, key) => {
-      if (key === start) {
-        obj[key] = 0
-      } else {
-        obj[key] = Infinity
-      }
-      return obj
-    }, {})
-
+    const distances = {}
+    const previous = {}
+    const path = []
     const queue = new PriorityQueue()
 
-    Object.keys(distances).forEach(key => {
-      queue.enqueue(key, distances[key])
+    Object.keys(this.adjacencyList).forEach(vertex => {
+      if (vertex === start) {
+        distances[vertex] = 0
+      } else {
+        distances[vertex] = Infinity
+      }
+      queue.enqueue(vertex, distances[vertex])
+      previous[vertex] = null
     })
 
-    const previous = Object.keys(this.adjacencyList).reduce((obj, key) => {
-      obj[key] = null
-      return obj
-    }, {})
-
     while (queue.values.length) {
-      const currentVertex = queue.dequeue()
-      if (currentVertex.val === end) {
-        return { distances, previous }
-      }
-      this.adjacencyList[currentVertex.val].forEach(adjacent => {
-        const distance = distances[currentVertex.val] + adjacent.weight
+      let currentVertex = queue.dequeue().val
 
-        if (distance < distances[adjacent.node]) {
-          distances[adjacent.node] = distance
-          previous[adjacent.node] = currentVertex.val
-          queue.enqueue(currentVertex.val, distance)
+      if (currentVertex === end) {
+        while (previous[currentVertex]) {
+          path.push(currentVertex)
+          currentVertex = previous[currentVertex]
         }
-      })
+        return path.concat(currentVertex).reverse()
+      }
+
+      if (currentVertex || distances[currentVertex !== Infinity]) {
+        this.adjacencyList[currentVertex].forEach(adjacent => {
+          const distance = distances[currentVertex] + adjacent.weight
+
+          if (distance < distances[adjacent.node]) {
+            distances[adjacent.node] = distance
+            previous[adjacent.node] = currentVertex
+            queue.enqueue(currentVertex, distance)
+          }
+        })
+      }
     }
   }
 }

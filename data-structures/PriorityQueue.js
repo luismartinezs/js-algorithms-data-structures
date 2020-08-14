@@ -127,3 +127,5 @@ healed.push(q.dequeue())
 console.log(healed)
 
 console.log(q.values)
+
+console.log(q)
