@@ -15,4 +15,4 @@ const maxSubarraySum = (arr, n) => {
   return max
 }
 
-export default maxSubarraySumhttps://javascript.info/
+export default maxSubarraySum

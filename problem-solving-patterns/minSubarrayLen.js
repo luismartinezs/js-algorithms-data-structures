@@ -15,7 +15,7 @@ const minSubarrayLen = (arr, target) => {
     } else {
       minLen = Math.min(minLen, j - i + 1)
       if (minLen === 1) return 1
-      sum -= arr[i]https://javascript.info/
+      sum -= arr[i]
       i++
     }
   }
